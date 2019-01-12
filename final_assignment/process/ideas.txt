@@ -1,0 +1,20 @@
+
+1- Blood test results. (chart/diagram)
+2- World Weapons Industry. (map or scatter chart)
+3- Hajj pilgrimage. (map)
+4- Visualize the current temperature around the world. (map)
+
+5-  extend the earthquake project: add more data and filtering options, show relationship between S and P waves and o–zone layer (map and diagrams)
+
+6- Airplanes routes between the biggest airports around the world (map) 
+
+7- Bike assembly infographic poster (diagram) 
+
+8- Mail carrier tracking number, visualize the route, the history (map or a timeline)
+
+9- Number of car accidents every day in Riyadh, Saudi Arabia. (diagram)
+
+10-The new metro system in Riyadh (map)
+
+
+More details are in README file. 

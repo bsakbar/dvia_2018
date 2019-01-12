@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+		<title>FinalAssignment</title>
+
+
+		<!-- D3.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+		<style>
+			html {
+				padding-left: 10px;
+				width: 1400px;
+				height: auto;
+				/* flex-grow: 1; */
+			}
+
+			body {
+				width: 1400px;
+				height: auto;
+				position: relative;
+				/* margin-top: 60px;
+				margin-left: 60px; */
+				background: white;
+				font-family: 'Helvetica';
+				font-size: 10px;
+				font-weight: 300;
+				fill: #242424;
+				text-align: center;
+				cursor: default;
+				overflow: hidden;
+				justify-content:center;
+				align-items:center;
+			}
+
+			.legend {
+				font-family: 'Helvetica', sans-serif;
+				fill: #333333;
+			}
+
+			.tooltip {
+				fill: #333333;
+			}
+
+			.radarChart {
+				z-index: 2;
+				position: absolute;
+
+			}
+			svg{
+				width: 1400px;
+				padding: 0;
+				z-index:1;
+				position: static;
+				justify-content:center;
+			}
+			.key{
+				font-family:'Helvetica';
+				font-weight: 200;
+				color: #232323;
+				font-size:10px;
+				padding: 0 0 0 0;
+				margin: 730px 20px;
+				z-index: 2;
+				position: absolute;
+				text-align: left;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="radarChart"></div>
+
+		<script src="final_assignment.js"></script>
+
+		<text class="key">All the results are standardized to fit in the chart, <br> the grey circle is the <b>normal</b> range.</text>
+
+		<script>
+      /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+
+			var margin = {top: 139, right: 100, bottom: 100, left: 89},
+				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 30);
+
+// console.log(window.innerWidth,window.innerHeight);
+			var data = [
+				// orange
+					  [
+						{axis:"RBC",value:0.55},
+						{axis:"WBC",value:0.45},
+						{axis:"Platelets",value:0.57},
+						{axis:"Hemoglobin",value:0.48},
+						{axis:"Hematocrit",value:0.54},
+						{axis:"MCV",value:0.54},
+						{axis:"Blood Glucose",value:0},
+						{axis:"Calcium",value:0},
+						{axis:"Sodium",value:0},
+						{axis:"BUN",value:0},
+						{axis:"Myoglobin",value:0},
+						{axis:"Creatine Kinase",value:0}
+					  ],
+						// blue
+						[
+		 				 {axis:"RBC",value:0},
+		 				 {axis:"WBC",value:0},
+		 				 {axis:"Platelets",value:0},
+		 				 {axis:"Hemoglobin",value:0},
+		 				 {axis:"Hematocrit",value:0},
+		 				 {axis:"MCV",value:0},
+		 				 {axis:"Blood Glucose",value:0.44},
+		 				 {axis:"Calcium",value:0.53},
+		 				 {axis:"Sodium",value:0.45},
+		 				 {axis:"BUN",value:0.57},
+		 				 {axis:"Myoglobin",value:0},
+		 				 {axis:"Creatine Kinase",value:0}
+		 				 ],
+						// magenta
+						[
+						 {axis:"RBC",value:0},
+						 {axis:"WBC",value:0},
+						 {axis:"Platelets",value:0},
+						 {axis:"Hemoglobin",value:0},
+						 {axis:"Hematocrit",value:0},
+						 {axis:"MCV",value:0},
+						 {axis:"Blood Glucose",value:0},
+						 {axis:"Calcium",value:0},
+						 {axis:"Sodium",value:0},
+						 {axis:"BUN",value:0},
+						 {axis:"Myoglobin",value:0.48},
+						 {axis:"Creatine Kinase",value:0.53}
+						 ]
+
+					];
+
+// Draw the Chart
+			var color = d3.scale.ordinal()
+				.range(["#ff9933","#20d1ff","#ff00ff"]);
+
+			var radarChartOptions = {
+			  w: width,
+			  h: height,
+			  margin: margin,
+			  maxValue: 1,
+			  levels: 10,
+			  roundStrokes: true,
+			  color: color
+			};
+			//Call function to draw the Radar chart
+			RadarChart(".radarChart", data, radarChartOptions);
+
+		</script>
+		<style>
+		.search{
+			position:absolute;
+			z-index:2;
+			margin: 635px 1230px;
+
+
+		}
+		input[type=search] {
+   -moz-appearance:none;
+   -webkit-appearance:none;
+		 color: #232323 ;
+		 border-radius: 15px;
+		 border: none;
+		 box-shadow:0px;
+		 opacity:0.7;
+		 outline: none;
+		 background-color: #ffffff;
+		 padding: 9px 9px 10px 9px;
+		 width:140px;
+		 height:28px;
+		}
+		input:focus, select:focus {
+		color: #333333;
+    opacity:1;
+    }
+		::placeholder {
+			color: #666666;
+			opacity:1;
+		}
+
+
+		/* input:hover, select:hover {
+    opacity: 1;
+} */
+		</style>
+
+		<!-- RBC -->
+		<input style="position:absolute; z-index:2; outline:none;
+        border:none;
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        background-color: transparent;
+        border-radius: 0;
+        -webkit-appearance: none;
+        color: #ff9933;
+        width: 25px;
+        margin: 198px 934px;
+        padding: 10px 10px;" type="text" id="RCB_input" placeholder=""/>
+
+		<!-- WBC -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff9933;
+				width: 25px;
+				margin: 218px 934px;
+				padding: 10px 10px;" type="text" id="WBC_input" placeholder=""/>
+
+		<!-- Platelets -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff9933;
+				width: 25px;
+				margin: 237px 934px;
+				padding: 10px 10px;" type="text" id="Platelets_input" placeholder=""/>
+
+		<!-- Hemoglobin -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff9933;
+				width: 25px;
+				margin: 257px 934px;
+				padding: 10px 10px;" type="text" id="Hemoglobin_input" placeholder=""/>
+
+		<!-- Hematocrit -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff9933;
+				width: 25px;
+				margin: 277px 934px;
+				padding: 10px 10px;" type="text" id="Hematocrit_input" placeholder=""/>
+
+		<!-- MCV -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff9933;
+				width: 25px;
+				margin: 297px 934px;
+				padding: 10px 10px;" type="text" id="MCV_input" placeholder=""/>
+
+		<!-- blood glucose -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #20d1ff;
+				width: 25px;
+				margin: 375px 934px;
+				padding: 10px 10px;" type="text" id="BG_input" placeholder=""/>
+
+		<!-- calcium -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #20d1ff;
+				width: 25px;
+				margin: 394px 934px;
+				padding: 10px 10px;" type="text" id="calcium_input" placeholder=""/>
+
+		<!-- sodium -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #20d1ff;
+				width: 25px;
+				margin: 413px 934px;
+				padding: 10px 10px;" type="text" id="electrolytes_input" placeholder=""/>
+
+		<!-- BUN -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #20d1ff;
+				width: 25px;
+				margin: 433px 934px;
+				padding: 10px 10px;" type="text" id="kidneys_input" placeholder=""/>
+
+		<!-- myoglobin -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff00ff;
+				width: 25px;
+				margin: 520px 934px;
+				padding: 10px 10px;" type="text" id="myoglobin_input" placeholder=""/>
+
+		<!-- Creatine -->
+		<input style="position:absolute; z-index:2; outline:none;
+				border:none;
+				-webkit-box-shadow: 0px 0px 0px;
+				box-shadow: 0px 0px 0px;
+				background-color: transparent;
+				border-radius: 0;
+				-webkit-appearance: none;
+				color: #ff00ff;
+				width: 25px;
+				margin: 539px 934px;
+				padding: 10px 10px;" type="text" id="creatine_input" placeholder=""/>
+
+
+				<!-- submit -->
+				<input style="position:absolute; z-index:2; outline:none;
+        -webkit-box-shadow: 0px 0px 0px;
+        box-shadow: 0px 0px 0px;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        padding: 10px 15px;
+        display: inline-block;
+        margin: 625px 750px;
+        cursor: pointer;
+        "type="button" name="submit" onclick="submit()" />
+
+
+				<!-- <div style="position:absolute; z-index:2;
+				-webkit-appearance: none;
+				background-color: transparent;
+				text-align: left;
+				font-size: 10px;
+				margin: 80px 1055px;
+				overflow: auto;"> -->
+				<iframe src="data/sidetext.html"
+				style="position:absolute; z-index:2;
+				-webkit-appearance: none;
+				height:788px;
+				width:295px;
+				margin: 0px 1073px;
+				border:none;" id="txtFrame"></iframe>
+
+				<!-- <form action="data/sidetext.html"
+				class="search"><input type="search" name="search" autocomplete="off" placeholder="search by keywords"/>
+				</form> -->
+
+
+
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			 viewBox="0 0 1400 788" style="enable-background:new 0 0 1400 788;">
+		<style type="text/css">
+			.st0{fill:#F3F3F3;}
+			.st1{fill:#FFFFFF;}
+			.st2{fill:#1A1A1A;}
+			.st3{font-family:'Helvetica-Bold';}
+			.st4{
+				font-size:22px;
+				letter-spacing: -0.4px;
+			}
+			.st5{fill:#4E4E4E;}
+			.st6{font-family:'Helvetica';}
+			.st7{font-size:15px;
+			letter-spacing: -0.3px;}
+			.st8{font-size:15px;
+			letter-spacing: -0.3px;}
+			.st9{font-family:'Helvetica-Light';}
+			.st10{font-size:10px;}
+			.st11{fill:none;stroke:#333333;stroke-width:0.25;stroke-miterlimit:10;}
+			.st12{fill:none;stroke:#676767;stroke-width:0.3;stroke-miterlimit:10;}
+			.st13{fill:none;stroke:#989898;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;}
+			.st14{fill:#F68C1F;}
+			.st15{fill:#20d1ff;}
+			.st16{fill:#ff00ff;}
+			.st17{fill:none;stroke:#414042;stroke-width:0.25;stroke-miterlimit:10;}
+
+			.st18{fill:none;stroke:#F3F3F3;
+			stroke-width:108;
+			stroke-miterlimit:10;}
+
+			.st20{fill:#4E4E4E;}
+			.st21{font-family:'Helvetica-Light';}
+			.st22{font-size:8px;}
+
+			.st23{fill:#4D4E4E;}
+			.st24{font-family:'Helvetica-Light';}
+			.st25{font-size:10.824px;}
+
+		</style>
+		<g>
+			<rect x="0.7" class="st0" width="1399.3" height="788"/>
+		</g>
+		<path class="st1" d="M405,0.2c187,34.6,328.8,198.7,328.8,395.7c0,190.4-132.3,349.9-310,391.5L0.7,787.9V0L405,0.2z"/>
+		<text transform="matrix(1 0 0 1 759.1084 145.6055)" class="st2 st3 st4">Input blood test results</text>
+		<text transform="matrix(1 0 0 1 781.7441 194.1802)" class="st5 st6 st7">CBC: Complete Blood Count</text>
+		<text transform="matrix(1 0 0 1 830.5957 374.0259)" class="st5 st6 st8">Blood Chemistry</text>
+		<text transform="matrix(1 0 0 1 823.2188 518.2949)" class="st5 st6 st8">Enzyme & Protein</text>
+		<text transform="matrix(1 0 0 1 790.5811 650.4375)" class="st5 st3 st8">Show Results</text>
+		<text transform="matrix(1 0 0 1 793.7363 220.7051)" class="st5 st9 st10">1. RBC</text>
+		<line class="st11" x1="935" y1="218.9" x2="965.5" y2="218.9"/>
+		<text transform="matrix(1 0 0 1 801.4736 240.5327)" class="st5 st9 st10">2. WBC</text>
+		<line class="st11" x1="935" y1="238.7" x2="965.5" y2="238.7"/>
+		<text transform="matrix(1 0 0 1 808.2051 260.3618)" class="st5 st9 st10">3. Platelets </text>
+		<line class="st11" x1="935" y1="258.6" x2="965.5" y2="258.6"/>
+		<text transform="matrix(1 0 0 1 812.25 280.1899)" class="st5 st9 st10">4. Hemoglobin</text>
+		<line class="st11" x1="935" y1="278.4" x2="965.5" y2="278.4"/>
+		<text transform="matrix(1 0 0 1 819.1553 299.3643)" class="st5 st9 st10">5. Hematocrit</text>
+		<line class="st11" x1="935" y1="298.2" x2="965.5" y2="298.2"/>
+		<text transform="matrix(1 0 0 1 823.2197 319.8481)" class="st5 st9 st10">6. MCV</text>
+		<line class="st11" x1="935" y1="318" x2="965.5" y2="318"/>
+		<text transform="matrix(1 0 0 1 830.5967 397.3838)" class="st5 st9 st10">7. Blood Glucose</text>
+		<text transform="matrix(1 0 0 1 815.5479 542.8467)" class="st5 st9 st10">11. Myoglobin</text>
+		<text transform="matrix(1 0 0 1 810.1387 562.1611)" class="st5 st9 st10">12. Creatine Kinase</text>
+		<line class="st11" x1="935" y1="395.6" x2="965.5" y2="395.6"/>
+		<text transform="matrix(1 0 0 1 831.8789 416.7002)"><tspan x="0" y="0" class="st5 st9 st10">8</tspan><tspan x="6" y="0" class="st5 st9 st10">. Calcium</tspan></text>
+		<text transform="matrix(1 0 0 1 831.8789 436.0146)" class="st5 st9 st10">9. Sodium</text>
+		<text transform="matrix(1 0 0 1 828.793 455.3311)" class="st5 st9 st10">10. BUN</text>
+
+		<line class="st11" x1="934.7" y1="414.9" x2="965.5" y2="414.9"/>
+		<line class="st11" x1="935" y1="434.2" x2="965.5" y2="434.2"/>
+		<line class="st11" x1="934.7" y1="453.5" x2="965.5" y2="453.5"/>
+		<line class="st11" x1="935" y1="541" x2="965.5" y2="541"/>
+		<line class="st11" x1="934.7" y1="560.4" x2="965.5" y2="560.4"/>
+
+		<line class="st12" x1="1061.5" y1="0" x2="1061.5" y2="900"/>
+		<circle class="st14" cx="763.6" cy="187.4" r="4.8"/>
+		<circle class="st15" cx="810.5" cy="368.1" r="4.8"/>
+		<circle class="st16" cx="801.5" cy="512" r="4.8"/>
+
+		<!-- submit arrow -->
+		<path class="st12" d="M765.7,652l-5.8-5.8c-0.8-0.8-0.8-2.1,0-2.9l5.8-5.8"/>
+		<circle class="st18" cx="345.7" cy="394" r="135"/>
+		<!-- <circle class="st19" cx="344.5" cy="394.3" r="188"/> -->
+
+<text transform="matrix(1 0 0 1 970 220.7051)" class="st20 st21 st22">,000,000 cells/mcL</text>
+<text transform="matrix(1 0 0 1 970 240.5327)" class="st20 st21 st22">,000 cells/mcL </text>
+<text transform="matrix(1 0 0 1 970 260.3618)" class="st20 st21 st22">0,000 cells/mcL </text>
+<text transform="matrix(1 0 0 1 970 280.1899)" class="st20 st21 st22">gm/dL</text>
+<text transform="matrix(1 0 0 1 970 397.3838)" class="st20 st21 st22">mg/dL</text>
+<text transform="matrix(1 0 0 1 970 417.2114)" class="st20 st21 st22">mg/dL</text>
+<text transform="matrix(1 0 0 1 970 437.0405)" class="st20 st21 st22">mEq/L</text>
+<text transform="matrix(1 0 0 1 970 456.8687)" class="st20 st21 st22">mg/dL</text>
+<text transform="matrix(1 0 0 1 970 541.0429)" class="st20 st21 st22">µg/mL</text>
+<text transform="matrix(1 0 0 1 970 560.871)" class="st20 st21 st22">U/L</text>
+<text transform="matrix(1 0 0 1 970 299.3643)" class="st20 st21 st22">%</text>
+<text transform="matrix(1 0 0 1 970 319.8481)" class="st20 st21 st22">fL</text>
+
+<!-- <text transform="matrix(6.123234e-17 -1 1 6.123234e-17 343 280)" class="st23 st24 st25">NORMAL</text> -->
+
+		<!-- <line class="st17" x1="58.2" y1="393.9" x2="602.5" y2="393.9"/>
+		<line class="st17" x1="343.7" y1="121.8" x2="343.7" y2="666.1"/> -->
+
+		</svg>
+
+	</body>
+</html>
