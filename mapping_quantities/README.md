@@ -7,6 +7,6 @@ Every year some countries had done the Nuclear Testing above or underground, and
 The red circles size show the overall total Nuclear tests in every year.
 
 
-[Launch Project](https://bsakbar.github.io/dvia_2018/mapping_quantities/Final_Mapping_Quantities.html)
+## [Open Project](https://bsakbar.github.io/dvia_2018/mapping_quantities/Final_Mapping_Quantities.html)
 
 [Data Source](http://www.johnstonsarchive.net/nuclear/tests/)
